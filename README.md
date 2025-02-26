@@ -1,54 +1,39 @@
-#project 210
-import streamlit as st
-import pandas as pd
+from flask import Flask
 
-# Initialize empty dataframes
-students = pd.DataFrame(columns=['ID', 'Name', 'Class'])
-teachers = pd.DataFrame(columns=['ID', 'Name', 'Subject'])
-messages = pd.DataFrame(columns=['ID', 'Sender', 'Message'])
+app = Flask(__name__)
 
-def main():
-    st.title("JPSP School Management System")
-    
-menu = ["Home", "Students", "Teachers", "Messages"]
-    choice = st.sidebar.selectbox("Menu", menu)
-    
-if choice == "Home":
-        st.subheader("Home")
-        st.write("Welcome to the JPSP School Management System!")
-    
- elif choice == "Students":
-        st.subheader("Students")
-        st.dataframe(students)
-        st.write("Add a new student:")
-        new_id = st.text_input("ID")
-        new_name = st.text_input("Name")
-        new_class = st.text_input("Class")
-        if st.button("Add Student"):
-            students.loc[len(students)] = [new_id, new_name, new_class]
-            st.success(f"Added student {new_name}")
-    
-elif choice == "Teachers":
-        st.subheader("Teachers")
-        st.dataframe(teachers)
-        st.write("Add a new teacher:")
-        new_id = st.text_input("ID")
-        new_name = st.text_input("Name")
-        new_subject = st.text_input("Subject")
-        if st.button("Add Teacher"):
-            teachers.loc[len(teachers)] = [new_id, new_name, new_subject]
-            st.success(f"Added teacher {new_name}")
-    
-elif choice == "Messages":
-        st.subheader("Messages")
-        st.dataframe(messages)
-        st.write("Add a new message:")
-        new_id = st.text_input("ID")
-        new_sender = st.text_input("Sender")
-        new_message = st.text_area("Message")
-        if st.button("Add Message"):
-            messages.loc[len(messages)] = [new_id, new_sender, new_message]
-            st.success(f"Added message from {new_sender}")
+@app.route('/')
+def home():
+    return """
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Prem Vivah Bhawan</title>
+        <style>
+            body { font-family: Arial, sans-serif; text-align: center; margin: 50px; background-color: #f8f8f8; }
+            .container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
+            h1 { color: #D81B60; }
+            p { font-size: 18px; }
+            .contact { margin-top: 20px; font-weight: bold; }
+            .contact a { color: #007BFF; text-decoration: none; }
+            .contact a:hover { text-decoration: underline; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Welcome to Prem Vivah Bhawan</h1>
+            <p>Your perfect venue for weddings and celebrations.</p>
+            
+<div class="contact">
+                <p>📞 Call us: <a href="tel:+919279200748">+91 92792 00748</a></p>
+                <p>📧 Email: <a href="mailto:utkarshraj27122010@gmail.com">utkarshraj27122010@gmail.com</a></p>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    app.run(debug=True)
